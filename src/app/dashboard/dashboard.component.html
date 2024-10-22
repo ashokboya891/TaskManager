@@ -196,6 +196,8 @@
               class="card"
               *ngFor="let teamMembersGroup of TeamMembers; let i = index"
             >
+
+         
               <div class="card-header bg-secondary" id="card1">
                 <h2 class="mb-0">
                   <button
@@ -214,26 +216,45 @@
                 data-parent="#accordion1"
               >
                 <div class="card-body">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                     <!-- <th>ID</th> -->
-                        <th>Name</th>
-                        <th>Status</th>
-                        <th>Role</th>
+                    <div *ngIf="i==0;then firstTemplate;else secondTemplate">
 
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let member of teamMembersGroup.Members">
-                        <td>{{ member.name }}</td>
-                        <td>{{ member.status }}</td>
-                        <td>{{ member.role }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                    </div>
+                    <ng-template #firstTemplate>
+                        <div
+                        class="card"
+                        *ngFor="let member of teamMembersGroup.Members"
+                      >
+                        <div class="card-header bg-primary text-white">
+                          #{{ member.role }} {{ member.name }}
+                        </div>
+                        <div class="card-body">{{ member.status }}</div>
+                      </div>
+                    </ng-template>
+
+                    <ng-template #secondTemplate>
+                        <table class="table">
+                            <thead>
+                              <tr>
+                             <!-- <th>ID</th> -->
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Role</th>
+        
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let member of teamMembersGroup.Members">
+                                <td>{{ member.name }}</td>
+                                <td>{{ member.status }}</td>
+                                <td>{{ member.role }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </ng-template>
+                  
                 </div>
               </div>
+         
             </div>
           </div>
         </div>
