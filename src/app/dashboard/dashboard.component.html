@@ -214,6 +214,7 @@
                 [id]="'cardbody' + i"
                 class="collapse"
                 data-parent="#accordion1"
+                [ngClass]="i == 0 ? 'show' : ''"
               >
                 <div class="card-body">
                     <div *ngIf="i==0;then firstTemplate;else secondTemplate">
@@ -227,7 +228,9 @@
                         <div class="card-header bg-primary text-white">
                           #{{ member.role }} {{ member.name }}
                         </div>
-                        <div class="card-body">{{ member.status }}</div>
+                        <div class="card-body" [style.color]="
+                        member.status == 'Busy' ? 'red' : 'black'
+                      ">{{ member.status }}</div>
                       </div>
                     </ng-template>
 
@@ -245,7 +248,9 @@
                             <tbody>
                               <tr *ngFor="let member of teamMembersGroup.Members">
                                 <td>{{ member.name }}</td>
-                                <td>{{ member.status }}</td>
+                                <td [style.color]="
+                                member.status == 'Busy' ? 'red' : 'black'
+                              ">{{ member.status }}</td>
                                 <td>{{ member.role }}</td>
                               </tr>
                             </tbody>
