@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit
         "Ashok Solutions","King Archites","Royal villas","Manu Builders"
       ];
       this.Projects=[
-        "BasF Solutions","Nestle Global","Vircho Pharma","Appolo Automations"
+        "Project A","BasF Solutions","Nestle Global","Vircho Pharma","Appolo Automations"
       ]
       this.Years=[
         2019,2022,2020,2024,2023
@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit
             {name:"ashi khana",status:"Avaialable",role:"Member"},
             {name:"raya ",status:"Avaialable",role:"Member"},
              {name:"asok kin",status:"Busy",role:"Exec Task-1"},
-           {name:"rahul ",status:"Busy",role:"s.developers"},
+             {name:"rahul ",status:"Busy",role:"s.developers"},
 
           ]
         },
@@ -90,6 +90,41 @@ export class DashboardComponent implements OnInit
        { Region:"North",TeamMembersCount:10,TemporaryUnavailableMembers:2}
 
       ]
+    }
+    onProjectChange($event:any)
+    {
+      console.log($event.target.innerHTML);
+      if ($event.target.innerHTML.trim() == 'BasF Solutions')
+      {
+        this.ProjectCost = 2123507;
+        this.CurrentExpenditure = 96788;
+        this.AvailableFunds = 52436;
+      }
+      else if ($event.target.innerHTML.trim() == 'Project A')
+        {
+          this.ProjectCost = 21235507;
+          this.CurrentExpenditure = 296788;
+          this.AvailableFunds = 552436;
+        }
+      else if ($event.target.innerHTML.trim() == 'Nestle Global')
+      {
+        this.ProjectCost = 88923;
+        this.CurrentExpenditure = 22450;
+        this.AvailableFunds = 2640;
+      }
+      else if($event.target.innerHTML.trim() == 'Vircho Pharma')
+      {
+        this.ProjectCost = 662183;
+        this.CurrentExpenditure = 7721;
+        this.AvailableFunds = 9811;
+      }
+      else if($event.target.innerHTML.trim() == 'Appolo Automations')
+      {
+        this.ProjectCost = 928431;
+        this.CurrentExpenditure = 562;
+        this.AvailableFunds = 883;
+      }
+
     }
   
 }
