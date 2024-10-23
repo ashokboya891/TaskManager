@@ -5,16 +5,19 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AboutComponent } from './about/about.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { DashboardService } from "../dashboard.service";
-import { ProjectsService } from '../Services/projects.service';
+import {  ReactiveFormsModule,FormsModule} from "@angular/forms";
 @NgModule({
   declarations: [
     DashboardComponent,
     AboutComponent,
     MyProfileComponent,
-    ProjectsComponent
+    ProjectsComponent,
+   
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports:[
     DashboardComponent,AboutComponent,MyProfileComponent,ProjectsComponent
