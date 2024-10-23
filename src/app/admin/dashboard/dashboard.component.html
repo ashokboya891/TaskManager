@@ -240,11 +240,11 @@
                         *ngFor="let member of teamMembersGroup.Members"
                       >`
                         <div class="card-header bg-primary text-white">
-                          #{{ member.role }} {{ member.name }}
+                          #{{ member.ID }} {{ member.Name }}
                         </div>
                         <div class="card-body" [style.color]="
-                        member.status == 'Busy' ? 'red' : 'black'
-                      ">{{ member.status }}</div>
+                        member.Status == 'Busy' ? 'red' : 'black'
+                      ">{{ member.Status }}</div>
                       </div>
                     </ng-template>
 
@@ -252,20 +252,19 @@
                         <table class="table">
                             <thead>
                               <tr>
-                             <!-- <th>ID</th> -->
+                             <th>ID</th>
                                 <th>Name</th>
                                 <th>Status</th>
-                                <th>Role</th>
         
                               </tr>
                             </thead>
                             <tbody>
                               <tr *ngFor="let member of teamMembersGroup.Members">
-                                <td>{{ member.name }}</td>
+                                <td>{{ member.ID }}</td>
+
+                                <td>{{ member.Name }}</td>
                                 <td [style.color]="
-                                member.status == 'Busy' ? 'red' : 'black'
-                              ">{{ member.status }}</td>
-                                <td>{{ member.role }}</td>
+                                member.Status == 'Busy' ? 'red' : 'black'   ">{{ member.Status }}</td>
                               </tr>
                             </tbody>
                           </table>

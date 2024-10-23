@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+ var baseUrl="https://localhost:7018/api/Projects";
 @Injectable({
   providedIn: 'root'
 })
@@ -13,37 +13,35 @@ export class DashboardService {
     var TeamMembers=[
       {Region: 'North',
         Members: [
-           {name:"latha madhuri",status:"Avaialable",role:"Tester"},
-          {name:"naina",status:"Avaialable",role:"Team Lead-1"},
-           {name:"raya ",status:"Avaialable",role:"Member"},
-           {name:"asok kin",status:"Busy",role:"Exec Task-1"},
+           {Name:"latha madhuri",Status:"Avaialable",ID:1},
+          {Name:"naina",Status:"Busy",ID:2},
+           {Name:"raya ",Status:"Avaialable",ID:3},
+           {Name:"asok kin",Status:"Avaialable",ID:4},
 
         ]
       },
       {Region: 'East',
         Members: [
-      {name:"joshi paul",status:"Avaialable",role:"sr.QC"},
-
-          {name:"naina",status:"Avaialable",role:"Team Lead-1"},
-           {name:"raya ",status:"Avaialable",role:"Member"},
-           {name:"asok kin",status:"Busy",role:"Exec Task-1"},
+           {Name:"joshi paul",Status:"Avaialable",ID:1},
+          {Name:"naina",Status:"Avaialable",ID:2},
+           {Name:"raya ",Status:"Avaialable",ID:3},
+           {Name:"asok kin",Status:"Busy",ID:4},
         ]
       },
       {Region: 'West',
         Members: [
-
-      {name:"sudha raga",status:"Busy",role:"junior deve"},
-          {name:"naina",status:"Avaialable",role:"Team Lead-1"},
-           {name:"raya ",status:"Avaialable",role:"Member"},
-           {name:"asok kin",status:"Busy",role:"Exec Task-1"},
+          {Name:"sudha raga",Status:"Busy",ID:1},
+          {Name:"naina",Status:"Avaialable",ID:2},
+           {Name:"raya ",Status:"Avaialable",ID:3},
+           {Name:"asok kin",Status:"Busy",ID:4},
         ]
       },
       {Region: 'South',
-        Members: [
-          {name:"ashi khana",status:"Avaialable",role:"Member"},
-          {name:"raya ",status:"Avaialable",role:"Member"},
-           {name:"asok kin",status:"Busy",role:"Exec Task-1"},
-           {name:"rahul ",status:"Busy",role:"s.developers"},
+          Members: [
+            {Name:"ashi khana",Status:"Avaialable",ID:1},
+            {Name:"raya ",Status:"Avaialable",ID:2},
+           {Name:"asok kin",Status:"Busy",ID:3},
+           {Name:"rahul ",Status:"Busy",ID:4},
 
         ]
       },
