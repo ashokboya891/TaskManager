@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardService } from 'src/app/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit 
 {
+
     Designation: string = "";
     Username: string = "";
     NoOfTeamMembers: number = 0;
@@ -22,7 +24,9 @@ export class DashboardComponent implements OnInit
     Years: number[] = [];
     TeamMembersSummary: any = [];
     TeamMembers: any = [];
-  
+   constructor(private dashboardservice:DashboardService) {
+    
+   }
     ngOnInit()
     {
       this.Designation = 'Team Leader';
@@ -35,62 +39,13 @@ export class DashboardComponent implements OnInit
       this.CurrentExpenditure = 96788;
       this.AvailableFunds = 52536;
       this.ToDay=new Date();
-      this.Clients=[
-        "Ashok Solutions","King Archites","Royal villas","Manu Builders"
-      ];
-      this.Projects=[
-        "Project A","BasF Solutions","Nestle Global","Vircho Pharma","Appolo Automations"
-      ]
-      this.Years=[
-        2019,2022,2020,2024,2023
-      ],
+      this.Clients=this.dashboardservice.getClients();
+      this.Projects=this.dashboardservice.getProjects();
+      this.Years=this.dashboardservice.getYears();
     
-      this.TeamMembers=[
-        {Region: 'North',
-          Members: [
-             {name:"latha madhuri",status:"Avaialable",role:"Tester"},
-            {name:"naina",status:"Avaialable",role:"Team Lead-1"},
-             {name:"raya ",status:"Avaialable",role:"Member"},
-             {name:"asok kin",status:"Busy",role:"Exec Task-1"},
+      this.TeamMembers=this.dashboardservice.getTeamMembers();
 
-          ]
-        },
-        {Region: 'East',
-          Members: [
-        {name:"joshi paul",status:"Avaialable",role:"sr.QC"},
-
-            {name:"naina",status:"Avaialable",role:"Team Lead-1"},
-             {name:"raya ",status:"Avaialable",role:"Member"},
-             {name:"asok kin",status:"Busy",role:"Exec Task-1"},
-          ]
-        },
-        {Region: 'West',
-          Members: [
-
-        {name:"sudha raga",status:"Busy",role:"junior deve"},
-            {name:"naina",status:"Avaialable",role:"Team Lead-1"},
-             {name:"raya ",status:"Avaialable",role:"Member"},
-             {name:"asok kin",status:"Busy",role:"Exec Task-1"},
-          ]
-        },
-        {Region: 'South',
-          Members: [
-            {name:"ashi khana",status:"Avaialable",role:"Member"},
-            {name:"raya ",status:"Avaialable",role:"Member"},
-             {name:"asok kin",status:"Busy",role:"Exec Task-1"},
-             {name:"rahul ",status:"Busy",role:"s.developers"},
-
-          ]
-        },
-      ]
-
-      this.TeamMembersSummary=[
-       { Region:"East",TeamMembersCount:22,TemporaryUnavailableMembers:4},
-       { Region:"West",TeamMembersCount:12,TemporaryUnavailableMembers:7},
-       { Region:"South",TeamMembersCount:8,TemporaryUnavailableMembers:5},
-       { Region:"North",TeamMembersCount:10,TemporaryUnavailableMembers:2}
-
-      ]
+      this.TeamMembersSummary=this.dashboardservice.getTeamMembersSummary();
     }
     onProjectChange($event:any)
     {
