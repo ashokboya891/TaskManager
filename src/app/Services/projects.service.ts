@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient  } from "@angular/common/http";
+import { HttpClient, HttpParams  } from "@angular/common/http";
 import { Project } from '../project';
 import { Observable } from 'rxjs';
 @Injectable({
@@ -26,4 +26,20 @@ export class ProjectsService {
   {
     return this.httpclient.delete<string>(this.url + "/api/Projects/" + ProjectID);
   }
-}
+  SearchProjects(searchBy: string, searchText: string): Observable<Project[]> {
+    const params = new HttpParams()
+      .set('searchBy', searchBy)
+      .set('searchText', searchText);
+  
+    return this.httpclient.get<Project[]>(this.url + '/api/Projects/Search', { params });
+  }
+  
+  // SearchProjects(searchBy:string,searchText:string):Observable<Project[]>{  
+  //   return this.httpclient.get<Project[]>(
+  //     this.url + '/api/Projects/Search?searchBy/' + searchBy + '/' + searchText,
+     
+  //   );
+
+    // return this.httpclient.get<Project[]>(this.url+"/api/Projects/Search/"+searchBy+"/"+searchText)
+  }
+
