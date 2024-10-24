@@ -7,11 +7,15 @@ import { map, Observable } from 'rxjs';
 })
 export class ProjectsService {
   url:string="https://localhost:7018";
+
+  jsonUrl:string="http://localhost:3000/projects";
   constructor(private httpclient:HttpClient ) { }
 
   getProjects():Observable<Project[]>{
     return this.httpclient
-      .get<Project[]>(this.url + '/api/Projects', { responseType: 'json' })
+      // .get<Project[]>(this.url + '/api/Projects', { responseType: 'json' })
+      .get<Project[]>(this.jsonUrl, { responseType: 'json' })
+
       .pipe(
         map((data: Project[]) =>
         {
