@@ -60,6 +60,9 @@
           <div class="input-group-append" (click)="onSearchClick()">
             <span class="input-group-text"><i class="fa fa-search"></i></span>
           </div>
+          <div class="input-group-append"   >
+            <span class="input-group-text"><i class="fa fa-cancel" (click)="refresh()" >Reset</i></span>
+          </div>
         </div>
       </div>
     </div>
@@ -83,7 +86,7 @@
         <tr *ngFor="let project of projects; let i = index">
           <td>{{ project.projectID }}</td>
           <td>{{ project.projectName }}</td>
-          <td>{{ project.dateOfStart }}</td>
+          <td>{{ project.dateOfStart |date:"dd-MMM-YYYY" }}</td>
           <td>{{ project.teamSize }}</td>
           <td>
             <button

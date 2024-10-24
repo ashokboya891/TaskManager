@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams  } from "@angular/common/http";
 import { Project } from '../project';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +10,18 @@ export class ProjectsService {
   constructor(private httpclient:HttpClient ) { }
 
   getProjects():Observable<Project[]>{
-   return this.httpclient.get<Project[]>(this.url+"/api/Projects")
+    return this.httpclient
+      .get<Project[]>(this.url + '/api/Projects', { responseType: 'json' })
+      .pipe(
+        map((data: Project[]) =>
+        {
+          for (let i = 0; i < data.length; i++)
+          {
+            data[i].teamSize = data[i].teamSize * 100;
+          }
+          return data;
+        })
+      );
   }
 
   insertProjects(newproject:Project):Observable<Project>{

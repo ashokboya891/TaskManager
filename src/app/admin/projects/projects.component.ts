@@ -25,6 +25,10 @@ export class ProjectsComponent implements OnInit {
       this.projects=opt
     })
   }
+  refresh()
+  {
+    this.ngOnInit();
+  }
   onSaveClick()
   {
     this.projectService.insertProjects(this.newProject).subscribe((response) => {
