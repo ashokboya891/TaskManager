@@ -28,13 +28,13 @@ export class ProjectsService {
           // }
           return data;
         }),
-        catchError(error => {
+        // catchError(error => {
           
-          // Show a popup notification with the error
-          this.notificationService.showError('Aurhentication Failed . Please try login again .');
-          // Log the error or handle it as needed
-          return throwError(error); // Rethrow the error to propagate it
-        })
+        //   // Show a popup notification with the error
+        //   this.notificationService.showError('Aurhentication Failed . Please try login again .');
+        //   // Log the error or handle it as needed
+        //   return throwError(error); // Rethrow the error to propagate it
+        // })
       );
   }
   

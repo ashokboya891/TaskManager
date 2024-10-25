@@ -10,6 +10,7 @@ import { FormsModule,ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar'; // Ensure this is imported
 import { JwtInterceptorService } from './jwt-interceptor.service';
+import { JwtUnAuthorizedInterceptorService } from './jwt-un-authorized-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -27,10 +28,15 @@ import { JwtInterceptorService } from './jwt-interceptor.service';
     BrowserAnimationsModule
   ],
   providers: [ 
-    
+//order of inceptors matter cause it executes how it declared
     {
       provide:HTTP_INTERCEPTORS,
       useClass:JwtInterceptorService,
+      multi:true
+    },
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:JwtUnAuthorizedInterceptorService,
       multi:true
     }
   ],
