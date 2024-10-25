@@ -2,16 +2,17 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { LoginViewModel } from '../login-view-model';
 import { User } from '../User';
-import { HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-url:string="https://localhost:7018/api/Account";
+  url:string="https://localhost:7018/api/Account";
   currentUserName:any=null;
-  constructor(private httpclient:HttpClient) { }
+  private httpClient:HttpClient|null=null;
+  constructor(private httpbackend:HttpBackend) { }
   
   // public Login(login:LoginViewModel):Observable<any>{
   //   return this.httpclient.post<any>(this.url+"/Login",login,{responseType:"json"}).pipe(map(user=>{
@@ -32,12 +33,18 @@ url:string="https://localhost:7018/api/Account";
   //   return this.httpclient.get<string>(this.url+"./logout");
   // }
   public Login(login: LoginViewModel): Observable<any> {
-    return this.httpclient.post<any>(`${this.url}/Login`, login, { responseType: 'json' }).pipe(
+    this.httpClient = new HttpClient(this.httpbackend);
+    return this.httpClient.post<any>(`${this.url}/Login`, login, { responseType: 'json' }).pipe(
       map(user => {
         if (user) {
-          this.currentUserName = user.Email;
-          console.log(this.currentUserName);
-          localStorage.setItem("token", user.token); // Assuming you store a token
+         
+              this.currentUserName = user.email;
+              console.log(this.currentUserName);
+              localStorage.setItem("token", user.token);
+              sessionStorage['currentUser'] = JSON.stringify(user);
+            
+            return user;
+       // Assuming you store a token
         }
         return user;
       })

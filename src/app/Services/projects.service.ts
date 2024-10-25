@@ -15,17 +15,17 @@ export class ProjectsService {
 
   getProjects(): Observable<Project[]> {
     let headers = new HttpHeaders();
-    headers = headers.append("Authorization", `Bearer ${localStorage['token']}`);
+    // headers = headers.append("Authorization", `Bearer ${localStorage['token']}`);headers: headers,
 
     return this.httpclient
-      .get<Project[]>(`${this.url}/api/Projects`, { headers: headers, responseType: "json" })
+      .get<Project[]>(`${this.url}/api/Projects`, {responseType: "json" })
       .pipe(
         map((data: Project[]) => {
           this.notificationService.showSuccess('Authenticated user..!')
 
-          for (let i = 0; i < data.length; i++) {
-            data[i].teamSize = data[i].teamSize * 100;
-          }
+          // for (let i = 0; i < data.length; i++) {
+          //   data[i].teamSize = data[i].teamSize * 100;
+          // }
           return data;
         }),
         catchError(error => {
@@ -41,21 +41,21 @@ export class ProjectsService {
   insertProjects(newproject:Project):Observable<Project>{
     let headers = new HttpHeaders();
     headers = headers.append("Authorization", `Bearer ${localStorage['token']}`);
-    return this.httpclient.post<Project>(this.url+"/api/Projects",newproject,{headers:headers})
+    return this.httpclient.post<Project>(this.url+"/api/Projects",newproject)
    }
    updateProject(existingProject: Project): Observable<Project>
   {
     console.log(existingProject.projectName)
-    let headers = new HttpHeaders();
-    headers = headers.append("Authorization", `Bearer ${localStorage['token']}`);
-    return this.httpclient.put<Project>(this.url + "/api/Projects/"+existingProject.projectID, existingProject, {headers:headers ,responseType: "json" });
+    // let headers = new HttpHeaders();
+    // headers = headers.append("Authorization", `Bearer ${localStorage['token']}`);
+    return this.httpclient.put<Project>(this.url + "/api/Projects/"+existingProject.projectID, existingProject, {responseType: "json" });
   }
 
   deleteProject(ProjectID: number): Observable<string>
   {
-    let headers = new HttpHeaders();
-    headers = headers.append("Authorization", `Bearer ${localStorage['token']}`);
-    return this.httpclient.delete<string>(this.url + "/api/Projects/" + ProjectID,{headers:headers});
+    // let headers = new HttpHeaders();
+    // headers = headers.append("Authorization", `Bearer ${localStorage['token']}`);
+    return this.httpclient.delete<string>(this.url + "/api/Projects/" + ProjectID);
   }
   SearchProjects(searchBy: string, searchText: string): Observable<Project[]> {
     let headers = new HttpHeaders();
@@ -64,7 +64,7 @@ export class ProjectsService {
       .set('searchBy', searchBy)
       .set('searchText', searchText);
   
-    return this.httpclient.get<Project[]>(this.url + '/api/Projects/Search', { params ,headers:headers});
+    return this.httpclient.get<Project[]>(this.url + '/api/Projects/Search', { params });
   }
   
   // SearchProjects(searchBy:string,searchText:string):Observable<Project[]>{  
