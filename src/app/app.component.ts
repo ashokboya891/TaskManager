@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginService } from './Services/login.service';
 
 @Component({
@@ -6,9 +6,12 @@ import { LoginService } from './Services/login.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent  implements OnInit {
   constructor(public loginService: LoginService)
   {
+  }
+  ngOnInit(): void {
+    // this.onSearchClick();
   }
 
   onSearchClick() {

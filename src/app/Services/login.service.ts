@@ -39,11 +39,10 @@ export class LoginService {
         if (user) {
          
               this.currentUserName = user.email;
-              console.log(this.currentUserName);
+              console.log(this.currentUserName+"in login servcie");
               localStorage.setItem("token", user.token);
               sessionStorage['currentUser'] = JSON.stringify(user);
             
-            return user;
        // Assuming you store a token
         }
         return user;
@@ -52,11 +51,10 @@ export class LoginService {
   }
 
   public Logout() {
+    sessionStorage.removeItem("currentUser");
     localStorage.removeItem("token");
     this.currentUserName = null;
   }
 
-  get isLoggedIn(): boolean {
-    return this.currentUserName !== null;
-  }
+
 }
