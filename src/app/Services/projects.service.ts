@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams  } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams  } from "@angular/common/http";
 import { Project } from '../project';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
+import { NotificationService } from '../NotificationService';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,44 +10,61 @@ export class ProjectsService {
   url:string="https://localhost:7018";
 
   jsonUrl:string="http://localhost:3000/projects";
-  constructor(private httpclient:HttpClient ) { }
+  
+  constructor(private httpclient:HttpClient,private notificationService: NotificationService ) { }
 
-  getProjects():Observable<Project[]>{
+  getProjects(): Observable<Project[]> {
+    let headers = new HttpHeaders();
+    headers = headers.append("Authorization", `Bearer ${localStorage['token']}`);
+
     return this.httpclient
-      // .get<Project[]>(this.url + '/api/Projects', { responseType: 'json' })
-      .get<Project[]>(this.jsonUrl, { responseType: 'json' })
-
+      .get<Project[]>(`${this.url}/api/Projects`, { headers: headers, responseType: "json" })
       .pipe(
-        map((data: Project[]) =>
-        {
-          for (let i = 0; i < data.length; i++)
-          {
+        map((data: Project[]) => {
+          this.notificationService.showSuccess('Authenticated user..!')
+
+          for (let i = 0; i < data.length; i++) {
             data[i].teamSize = data[i].teamSize * 100;
           }
           return data;
+        }),
+        catchError(error => {
+          
+          // Show a popup notification with the error
+          this.notificationService.showError('Aurhentication Failed . Please try login again .');
+          // Log the error or handle it as needed
+          return throwError(error); // Rethrow the error to propagate it
         })
       );
   }
-
+  
   insertProjects(newproject:Project):Observable<Project>{
-    return this.httpclient.post<Project>(this.url+"/api/Projects",newproject)
+    let headers = new HttpHeaders();
+    headers = headers.append("Authorization", `Bearer ${localStorage['token']}`);
+    return this.httpclient.post<Project>(this.url+"/api/Projects",newproject,{headers:headers})
    }
    updateProject(existingProject: Project): Observable<Project>
   {
     console.log(existingProject.projectName)
-    return this.httpclient.put<Project>(this.url + "/api/Projects/"+existingProject.projectID, existingProject, { responseType: "json" });
+    let headers = new HttpHeaders();
+    headers = headers.append("Authorization", `Bearer ${localStorage['token']}`);
+    return this.httpclient.put<Project>(this.url + "/api/Projects/"+existingProject.projectID, existingProject, {headers:headers ,responseType: "json" });
   }
 
   deleteProject(ProjectID: number): Observable<string>
   {
-    return this.httpclient.delete<string>(this.url + "/api/Projects/" + ProjectID);
+    let headers = new HttpHeaders();
+    headers = headers.append("Authorization", `Bearer ${localStorage['token']}`);
+    return this.httpclient.delete<string>(this.url + "/api/Projects/" + ProjectID,{headers:headers});
   }
   SearchProjects(searchBy: string, searchText: string): Observable<Project[]> {
+    let headers = new HttpHeaders();
+    headers = headers.append("Authorization", `Bearer ${localStorage['token']}`);
     const params = new HttpParams()
       .set('searchBy', searchBy)
       .set('searchText', searchText);
   
-    return this.httpclient.get<Project[]>(this.url + '/api/Projects/Search', { params });
+    return this.httpclient.get<Project[]>(this.url + '/api/Projects/Search', { params ,headers:headers});
   }
   
   // SearchProjects(searchBy:string,searchText:string):Observable<Project[]>{  

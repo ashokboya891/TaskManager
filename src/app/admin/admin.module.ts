@@ -4,7 +4,7 @@ import { ProjectsComponent } from "../admin/projects/projects.component";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AboutComponent } from './about/about.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
-import { DashboardService } from "../dashboard.service";
+import { DashboardService } from "../Services/dashboard.service";
 import {  ReactiveFormsModule,FormsModule} from "@angular/forms";
 @NgModule({
   declarations: [

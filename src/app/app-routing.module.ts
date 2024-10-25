@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { AboutComponent } from './admin/about/about.component';
 import { MyProfileComponent } from './admin/my-profile/my-profile.component';
+import {LoginComponent  } from "../app/login/login.component";
 import {ProjectsComponent  } from "../app/admin/projects/projects.component";
 const routes: Routes = [
   {
@@ -19,12 +20,16 @@ const routes: Routes = [
 
   },
   {
-   path:"", redirectTo:"dashboard",pathMatch:"full"
+    path:"login",component:LoginComponent
+
+  },
+  {
+   path:"", redirectTo:"login",pathMatch:"full"
   }
 ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{useHash:true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

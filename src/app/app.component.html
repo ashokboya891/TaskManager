@@ -1,52 +1,41 @@
 <nav class="navbar navbar-expand-sm bg-success navbar-dark">
-  <a class="navbar-brand" href="#"> Angular Task Manager </a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#mynav"
-  >
+  <a class="navbar-brand" href="#">Angular Task Manager</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynav">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="mynav">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/dashboard">Dashboard</a>
+      <li class="nav-item" *ngIf="loginService.currentUserName">
+        <a class="nav-link" routerLink="dashboard">Dashboard</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/about">About</a>
+        <a class="nav-link" routerLink="about" *ngIf="loginService.currentUserName">About</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/myProfile">Profile</a>
+        <a class="nav-link" routerLink="projects" *ngIf="loginService.currentUserName">Projects</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/projects">Projects</a>
+      <li class="nav-item" *ngIf="loginService.currentUserName">
+        <a class="nav-link" href="#">{{loginService.currentUserName}}</a>
+      </li>
+      <li class="nav-item" *ngIf="loginService.currentUserName">
+        <a class="nav-link" href="#" (click)="loginService.Logout()">Logout</a>
+      </li>
+      <li class="nav-item" *ngIf="!loginService.currentUserName">
+        <a class="nav-link" routerLink="login">Login</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
+    <form class="form-inline my-2 my-lg-0" (ngSubmit)="onSearchClick()">
       <div class="input-group">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="search"
-            ><i class="fa fa-search"></i
-          ></span>
+          <span class="input-group-text" id="search"><i class="fa fa-search"></i></span>
         </div>
-        <input type="text" class="form-control" placeholder="Search" />
+        <input type="text" class="form-control" placeholder="Search">
       </div>
-      <button class="btn btn-warning my2- my-sm-0" type="button">Search</button>
+      <button class="btn btn-warning my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
 </nav>
 
 <div class="container-fluid">
-  <!-- <h1>Welcome to Portal</h1> -->
-  <!-- <h2>Hello</h2> -->
+  <router-outlet></router-outlet> 
 </div>
-<div>
-  <router-outlet></router-outlet>
-</div>
-<!-- <div >
-  <app-dashboard></app-dashboard>
-</div>
-<div>
-  <app-about></app-about>
-</div> -->
