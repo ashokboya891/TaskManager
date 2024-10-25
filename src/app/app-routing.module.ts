@@ -5,27 +5,28 @@ import { AboutComponent } from './admin/about/about.component';
 import { MyProfileComponent } from './admin/my-profile/my-profile.component';
 import {LoginComponent  } from "../app/login/login.component";
 import {ProjectsComponent  } from "../app/admin/projects/projects.component";
+import { canActivateGuard } from './can-activate.guard';
 const routes: Routes = [
   {
-    path:"dashboard",component:DashboardComponent
+    path:"dashboard",component:DashboardComponent,canActivate: [ canActivateGuard ]
   },
   {
-    path:"about",component:AboutComponent
+    path:"about",component:AboutComponent,
   },
   {
     path:"myProfile",component:MyProfileComponent
   },
   {
-    path:"projects",component:ProjectsComponent
+    path:"projects",component:ProjectsComponent,canActivate: [ canActivateGuard ]
 
   },
   {
     path:"login",component:LoginComponent
 
   },
-  {
-   path:"", redirectTo:"login",pathMatch:"full"
-  }
+  // {
+  //  path:"", redirectTo:"login",pathMatch:"full"
+  // }
 ]
 
 @NgModule({

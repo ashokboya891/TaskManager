@@ -3,7 +3,7 @@ import { map, Observable } from 'rxjs';
 import { LoginViewModel } from '../login-view-model';
 import { User } from '../User';
 import { HttpBackend, HttpClient } from '@angular/common/http';
-
+import { JwtHelperService  } from "@auth0/angular-jwt";
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +12,7 @@ export class LoginService {
   url:string="https://localhost:7018/api/Account";
   currentUserName:any=null;
   private httpClient:HttpClient|null=null;
-  constructor(private httpbackend:HttpBackend) { }
+  constructor(private httpbackend:HttpBackend,private jwtHelperService:JwtHelperService) { }
   
   // public Login(login:LoginViewModel):Observable<any>{
   //   return this.httpclient.post<any>(this.url+"/Login",login,{responseType:"json"}).pipe(map(user=>{
@@ -55,6 +55,18 @@ export class LoginService {
     localStorage.removeItem("token");
     this.currentUserName = null;
   }
-
+  public isAuthenticated(): boolean
+  {
+    var token = sessionStorage.getItem("currentUser") ? JSON.parse(sessionStorage.getItem("currentUser") as any).token : null;
+    if (this.jwtHelperService.isTokenExpired())
+    {
+      return false; //token is not valid
+    }
+    else
+    {
+      return true; //token is valid
+    }
+  }
+  
 
 }
