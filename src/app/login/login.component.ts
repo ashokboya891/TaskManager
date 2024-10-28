@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
       (response) =>
       {
         localStorage["token"] = response.token;
-        this.routerService.navigateByUrl("/projects");
+        this.routerService.navigateByUrl("/myProfile");
       },
       (error) =>
       {

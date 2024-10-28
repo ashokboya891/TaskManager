@@ -14,24 +14,6 @@ export class LoginService {
   private httpClient:HttpClient|null=null;
   constructor(private httpbackend:HttpBackend,private jwtHelperService:JwtHelperService) { }
   
-  // public Login(login:LoginViewModel):Observable<any>{
-  //   return this.httpclient.post<any>(this.url+"/Login",login,{responseType:"json"}).pipe(map(user=>{
-  //     if(user)
-  //     {
-  //       this.currentUserName=user.UserName
-  //     }
-  //     return user;
-  //   }))
-
-  // }
-  // public Logout()
-  // {
-  //   localStorage.removeItem("token")
-  //   this.currentUserName=null;
-  // }
-  // public getLogout(): Observable<string> {
-  //   return this.httpclient.get<string>(this.url+"./logout");
-  // }
   public Login(login: LoginViewModel): Observable<any> {
     this.httpClient = new HttpClient(this.httpbackend);
     return this.httpClient.post<any>(`${this.url}/Login`, login, { responseType: 'json' }).pipe(
@@ -50,6 +32,7 @@ export class LoginService {
     );
   }
 
+
   public Logout() {
     sessionStorage.removeItem("currentUser");
     localStorage.removeItem("token");
@@ -67,18 +50,7 @@ export class LoginService {
     return false; // Token is not valid
   }
   
-  // public isAuthenticated(): boolean
-  // {
-  //   var token = sessionStorage.getItem("currentUser") ? JSON.parse(sessionStorage.getItem("currentUser") as any).token : null;
-  //   if (this.jwtHelperService.isTokenExpired())
-  //   {
-  //     return false; //token is not valid
-  //   }
-  //   else
-  //   {
-  //     return true; //token is valid
-  //   }
-  // }
+  
   
 
 }

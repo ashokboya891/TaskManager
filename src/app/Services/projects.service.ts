@@ -40,8 +40,8 @@ export class ProjectsService {
   
   insertProjects(newproject:Project):Observable<Project>{
     let headers = new HttpHeaders();
-    headers = headers.append("Authorization", `Bearer ${localStorage['token']}`);
-    return this.httpclient.post<Project>(this.url+"/api/Projects",newproject)
+    headers.set("X-XSRF-TOKEN",sessionStorage['XSRFRequestToken'])
+    return this.httpclient.post<Project>(this.url+"/api/Projects",newproject,{responseType:"json"})
    }
    updateProject(existingProject: Project): Observable<Project>
   {
