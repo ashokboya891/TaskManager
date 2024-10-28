@@ -10,10 +10,14 @@ export class AppComponent  implements OnInit {
   constructor(public loginService: LoginService)
   {
   }
-  ngOnInit(): void {
-    // this.onSearchClick();
+  ngOnInit() {
+    // Check if the user is logged in on app initialization
+    const currentUser = sessionStorage.getItem('currentUser');
+    if (currentUser) {
+      const user = JSON.parse(currentUser);
+      this.loginService.currentUserName = user.email; // or however you want to store the username
+    }
   }
-
   onSearchClick() {
     console.log('Search clicked for user:', this.loginService.currentUserName);
     // Implement search functionality here

@@ -11,10 +11,10 @@ const routes: Routes = [
     path:"dashboard",component:DashboardComponent,canActivate: [ canActivateGuard ]
   },
   {
-    path:"about",component:AboutComponent,
+    path:"about",component:AboutComponent,canActivate: [ canActivateGuard ]
   },
   {
-    path:"myProfile",component:MyProfileComponent
+    path:"myProfile",component:MyProfileComponent,canActivate: [ canActivateGuard ]
   },
   {
     path:"projects",component:ProjectsComponent,canActivate: [ canActivateGuard ]

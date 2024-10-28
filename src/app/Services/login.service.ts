@@ -55,18 +55,30 @@ export class LoginService {
     localStorage.removeItem("token");
     this.currentUserName = null;
   }
-  public isAuthenticated(): boolean
-  {
-    var token = sessionStorage.getItem("currentUser") ? JSON.parse(sessionStorage.getItem("currentUser") as any).token : null;
-    if (this.jwtHelperService.isTokenExpired())
-    {
-      return false; //token is not valid
+  public isAuthenticated(): boolean {
+    const token = localStorage.getItem("token");
+    if (token && !this.jwtHelperService.isTokenExpired(token)) {
+      const currentUser = sessionStorage.getItem('currentUser');
+      if (currentUser) {
+        this.currentUserName = JSON.parse(currentUser).email; // Set the current user name
+      }
+      return true; // Token is valid
     }
-    else
-    {
-      return true; //token is valid
-    }
+    return false; // Token is not valid
   }
+  
+  // public isAuthenticated(): boolean
+  // {
+  //   var token = sessionStorage.getItem("currentUser") ? JSON.parse(sessionStorage.getItem("currentUser") as any).token : null;
+  //   if (this.jwtHelperService.isTokenExpired())
+  //   {
+  //     return false; //token is not valid
+  //   }
+  //   else
+  //   {
+  //     return true; //token is valid
+  //   }
+  // }
   
 
 }

@@ -6,4 +6,5 @@
     token:any;
     email:any;
     expire:any;
+    roles:any;
   }
