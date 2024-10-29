@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { User } from '../User';
 import { LoginViewModel } from '../login-view-model';
 import { LoginService } from '../Services/login.service';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+
 })
 export class LoginComponent implements OnInit {
   loginviewmodel: LoginViewModel = new LoginViewModel();
@@ -18,7 +20,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  constructor(private loginservie:LoginService,private routerService:Router) {
+  constructor(private loginservie:LoginService,private routerService:Router,private toast:ToastrService) {
   }
 
   onLoginClick(event: any)
@@ -28,6 +30,7 @@ export class LoginComponent implements OnInit {
       {
         localStorage["token"] = response.token;
         this.routerService.navigateByUrl("/myProfile");
+        // this.toast.success("logged in..!")
       },
       (error) =>
       {

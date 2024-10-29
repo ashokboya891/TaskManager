@@ -1,9 +1,1 @@
-.error-snackbar {
-    background-color: #f44336; /* Red */
-    color: white;
-  }
-  .success-snackbar {
-    background-color: green; /* Or any color you prefer */
-    color: white;
-  }
-  
+@import 'ngx-toastr/toastr';

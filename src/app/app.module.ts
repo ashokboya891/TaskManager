@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar'; // Ensure this is imported
 import { JwtInterceptorService } from './jwt-interceptor.service';
 import { JwtUnAuthorizedInterceptorService } from './jwt-un-authorized-interceptor.service';
-
+import { ToastrModule } from "ngx-toastr";
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +33,9 @@ import { JwtUnAuthorizedInterceptorService } from './jwt-un-authorized-intercept
           return (sessionStorage.getItem("currentUser") ? JSON.parse(sessionStorage.getItem("currentUser") as string).token : null)
         }
       }
-    })
+    }),
+    ToastrModule.forRoot({positionClass:'toast-bottom-right'}),
+    
   ],
   providers: [ 
 //order of inceptors matter cause it executes how it declared

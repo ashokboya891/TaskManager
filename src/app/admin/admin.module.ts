@@ -6,6 +6,7 @@ import { AboutComponent } from './about/about.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { DashboardService } from "../Services/dashboard.service";
 import {  ReactiveFormsModule,FormsModule} from "@angular/forms";
+import { ToastrService } from 'ngx-toastr';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -22,6 +23,6 @@ import {  ReactiveFormsModule,FormsModule} from "@angular/forms";
   exports:[
     DashboardComponent,AboutComponent,MyProfileComponent,ProjectsComponent
   ],
-  providers:[DashboardService]
+  providers:[DashboardService,ToastrService]
 })
 export class AdminModule { }

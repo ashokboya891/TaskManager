@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ClientLocation } from 'src/app/client-location';
 import { ClientLocationService } from 'src/app/client-location.service';
 import { NotificationService } from 'src/app/NotificationService';
@@ -8,7 +8,8 @@ import { ProjectsService } from 'src/app/Services/projects.service';
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.scss']
+  styleUrls: ['./projects.component.scss'],
+
 })
 export class ProjectsComponent implements OnInit {
 
@@ -46,11 +47,6 @@ export class ProjectsComponent implements OnInit {
     this.ngOnInit();
   }
   onSaveClick() {
-
-//     console.log("Client Locations:", this.clientLocations);
-// console.log("Selected Client Location ID:", this.newProject.clientLocationID);
-
-    // Check if a client location has been selected
     const selectedClientLocation = this.clientLocations.find(cl => cl.clientLocationID === Number(this.newProject.clientLocationID));
     console.log("selected Location:", selectedClientLocation?.clientLocationName);
     
@@ -70,6 +66,8 @@ export class ProjectsComponent implements OnInit {
     // Call the service to insert the new project
     this.projectService.insertProjects(this.newProject).subscribe((response: Project) => {
       // Create a new Project object with the response data
+      this.notificationService.showSuccess("Inserted successfully..!")
+
       var p: Project = new Project();
       p.projectID = response.projectID;
       p.projectName = response.projectName;
@@ -144,10 +142,14 @@ export class ProjectsComponent implements OnInit {
   onUpdateClick() {
     this.projectService.updateProject(this.editProject).subscribe(
       (response: Project) => {
+       this.notificationService.showInfo("updated..!")
+
         // Assuming the response contains the updated project data
         if (response && response.projectID) {
           // Update the local project list with the new data
           this.projects[this.editIndex] = response; // Use the response directly
+
+
         } else {
           console.error('Response does not contain expected project data:', response);
         }
@@ -165,6 +167,7 @@ export class ProjectsComponent implements OnInit {
   onDeleteClick(event: any, index: number)
   {
     console.log(index+"from delete utton");
+    this.notificationService.showWarning("are you sure..!")
     
     this.deleteIndex = index;
     this.deleteProject.projectID = this.projects[index].projectID;
@@ -179,6 +182,7 @@ export class ProjectsComponent implements OnInit {
     this.projectService.deleteProject(this.deleteProject.projectID).subscribe(
       (response) =>
       {
+
         this.projects.splice(this.deleteIndex, 1);
         this.deleteProject.projectID = null;
         this.deleteProject.projectName = null;
