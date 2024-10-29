@@ -9,7 +9,6 @@ import { ProjectsService } from 'src/app/Services/projects.service';
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
-
 })
 export class ProjectsComponent implements OnInit {
 

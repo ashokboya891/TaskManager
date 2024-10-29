@@ -23,6 +23,6 @@ import { ToastrService } from 'ngx-toastr';
   exports:[
     DashboardComponent,AboutComponent,MyProfileComponent,ProjectsComponent
   ],
-  providers:[DashboardService,ToastrService]
+  providers:[DashboardService]
 })
 export class AdminModule { }

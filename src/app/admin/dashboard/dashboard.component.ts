@@ -5,8 +5,6 @@ import { DashboardService } from 'src/app/Services/dashboard.service';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  
-
 })
 export class DashboardComponent implements OnInit 
 {
