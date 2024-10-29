@@ -3,6 +3,7 @@ import { User } from '../User';
 import { LoginViewModel } from '../login-view-model';
 import { LoginService } from '../Services/login.service';
 import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -12,12 +13,14 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginviewmodel: LoginViewModel = new LoginViewModel();
   loginError:string="";
+ 
+
   ngOnInit(): void {
 
   }
   constructor(private loginservie:LoginService,private routerService:Router) {
-    
   }
+
   onLoginClick(event: any)
   {
     this.loginservie.Login(this.loginviewmodel).subscribe(
