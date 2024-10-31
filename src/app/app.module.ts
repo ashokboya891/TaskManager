@@ -16,6 +16,7 @@ import { ToastrModule } from "ngx-toastr";
   declarations: [
     AppComponent,
     LoginComponent,
+    
   ],
   imports: [
     BrowserModule,

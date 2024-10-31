@@ -6,13 +6,15 @@ import { AboutComponent } from './about/about.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { DashboardService } from "../Services/dashboard.service";
 import {  ReactiveFormsModule,FormsModule} from "@angular/forms";
-import { ToastrService } from 'ngx-toastr';
+import {  TeamSizeValidatorDirective} from "../team-size.directive";
 @NgModule({
   declarations: [
     DashboardComponent,
     AboutComponent,
     MyProfileComponent,
     ProjectsComponent,
+    TeamSizeValidatorDirective
+
    
   ],
   imports: [
@@ -21,7 +23,7 @@ import { ToastrService } from 'ngx-toastr';
     FormsModule
   ],
   exports:[
-    DashboardComponent,AboutComponent,MyProfileComponent,ProjectsComponent
+    DashboardComponent,AboutComponent,MyProfileComponent,ProjectsComponent,TeamSizeValidatorDirective
   ],
   providers:[DashboardService]
 })
