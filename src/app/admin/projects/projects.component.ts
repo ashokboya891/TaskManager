@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ClientLocation } from 'src/app/client-location';
 import { ClientLocationService } from 'src/app/client-location.service';
 import { NotificationService } from 'src/app/NotificationService';
 import { Project } from 'src/app/project';
 import { ProjectsService } from 'src/app/Services/projects.service';
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-projects',
@@ -25,6 +27,8 @@ export class ProjectsComponent implements OnInit {
   searchBy: string = 'ProjectName';
   searchText: string = '';
   
+  @ViewChild("newForm") newForm: NgForm | any = null;
+  @ViewChild("editForm") editForm: NgForm | any = null;
   constructor(private projectService:ProjectsService,private clientLocationService:ClientLocationService,private notificationService:NotificationService) {
   
   }
@@ -45,6 +49,11 @@ export class ProjectsComponent implements OnInit {
   {
     this.ngOnInit();
   }
+  onNewClick(event: any)
+  {
+     this.newForm.resetForm();
+  }
+
   onSaveClick() {
     const selectedClientLocation = this.clientLocations.find(cl => cl.clientLocationID === Number(this.newProject.clientLocationID));
     console.log("selected Location:", selectedClientLocation?.clientLocationName);
@@ -82,6 +91,8 @@ export class ProjectsComponent implements OnInit {
   
       // Clear New Project Dialog - Resetting to a new instance
       this.newProject = new Project(); 
+      $("#newFormCancel").trigger("click");
+
     }, (error) => {
       if (error.error && error.error.message) {
         this.notificationService.showError(error.error.message);
@@ -148,7 +159,7 @@ export class ProjectsComponent implements OnInit {
           // Update the local project list with the new data
           this.projects[this.editIndex] = response; // Use the response directly
 
-
+          //$('#editModal').modal('hide');
         } else {
           console.error('Response does not contain expected project data:', response);
         }
@@ -156,6 +167,8 @@ export class ProjectsComponent implements OnInit {
         // Clear the edit form fields
         this.editProject = new Project(); // Resetting to a new Project instance
         this.editIndex = null; // Clear the edit index
+        $("#editFormCancel").trigger("click");
+
       },
       (error) => {
         console.log(error);

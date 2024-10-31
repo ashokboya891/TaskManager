@@ -5,6 +5,7 @@ import { LoginService } from '../Services/login.service';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { NotificationService } from '../NotificationService';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  constructor(private loginservie:LoginService,private routerService:Router,private toast:ToastrService) {
+  constructor(private loginservie:LoginService,private routerService:Router,private notificationService:NotificationService) {
   }
 
   onLoginClick(event: any)
@@ -32,11 +33,14 @@ export class LoginComponent implements OnInit {
         this.routerService.navigateByUrl("/myProfile");
         // this.toast.success("logged in..!")
       },
-      (error) =>
-      {
-        console.log(error);
-        this.loginError = "Invalid Username or Password";
-      },
+      (error) => {
+        if (error.error && error.error.detail) {
+          this.notificationService.showError(error.error.detail);
+        } else {
+          // Fallback for unexpected errors
+          this.notificationService.showError('An unexpected error occurred.');
+        }
+      }
     );
   }
   
